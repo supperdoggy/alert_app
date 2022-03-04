@@ -1,0 +1,1 @@
+protoc alert_proto/alert.proto --go_out=plugins=grpc:.

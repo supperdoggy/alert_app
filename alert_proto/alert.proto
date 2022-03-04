@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package alertpb;
+option go_package="alert_proto/";
+
+message Alert {
+  string tag = 1;
+  string address = 2;
+  string title = 3;
+  string body = 4;
+  int64 expiration_datetime = 5;
+}
+
+// db service
+
+message GetAlertsRequest {
+  string token = 1;
+  string user_id = 2;
+}
+
+message GetAlertsResponse {
+  Alert alert = 1;
+}
+
+message NewAlertRequest {
+  Alert alert = 1;
+}
+
+message NewAlertResponse {
+  Alert alert = 1;
+}
+
+service NotificationService {
+  rpc GetAlerts(GetAlertsRequest) returns (stream GetAlertsResponse) {};
+}
+
+// db service
+
+message GetAlertStreamRequest {
+
+}
+
+message GetAlertStreamResponse {
+  Alert alert = 1;
+}
+
+service AlertDatabaseService {
+  rpc NewAlert(NewAlertRequest) returns (NewAlertResponse) {};
+  rpc GetAlertStream(GetAlertStreamRequest) returns (stream GetAlertStreamResponse) {};
+}
