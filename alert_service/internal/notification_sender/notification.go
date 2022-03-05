@@ -4,6 +4,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/supperdoggy/alert/alert_proto"
 	"github.com/supperdoggy/alert/alert_service/internal/databaseClient"
+	"github.com/supperdoggy/alert/alerts_structs"
 	"go.uber.org/zap"
 	"io"
 	"sync"
@@ -11,14 +12,14 @@ import (
 
 type ISender interface {
 	Start() error
-	AddNewClientStream(stream alert_proto.AlertDatabaseService_GetAlertStreamServer)
+	AddNewClientStream(stream alert_proto.NotificationService_GetAlertsServer, userID, token string)
 }
 
 type sender struct {
 	logger *zap.Logger
 	listener databaseClient.IDatabaseClient
 
-	streamConnections []alert_proto.AlertDatabaseService_GetAlertStreamServer
+	streamConnections []alerts_structs.ClientGetAlertStream
 	mut sync.Mutex
 }
 
@@ -26,7 +27,7 @@ func NewSender(l *zap.Logger, listener databaseClient.IDatabaseClient) ISender {
 	return &sender{
 		logger:            l,
 		listener:          listener,
-		streamConnections: make([]alert_proto.AlertDatabaseService_GetAlertStreamServer, 0),
+		streamConnections: make([]alerts_structs.ClientGetAlertStream, 0),
 	}
 }
 
@@ -43,10 +44,12 @@ func (s *sender) Start() error {
 		s.mut.Lock()
 		// if we have no connections then we just loose msg for now
 		for k, v := range s.streamConnections {
-			msg := alert_proto.GetAlertStreamResponse{Alert: alert}
-			err := v.Send(&msg)
+			msg := alert_proto.GetAlertsResponse{Alert: alert}
+
+			err := v.Stream.Send(&msg)
 			if err == io.EOF {
 				// hope it works man
+				// removes the stream from pull of streams
 				s.streamConnections = append(s.streamConnections[:k], s.streamConnections[k+1:]...)
 				continue
 			}
@@ -54,14 +57,17 @@ func (s *sender) Start() error {
 			if err != nil {
 				s.logger.Error("error sending response", zap.Error(err))
 			}
+			s.logger.Info("sent notification to user", zap.Any("user", v.UserID))
 
 		}
 		s.mut.Unlock()
 	}
 }
 
-func (s *sender) AddNewClientStream(stream alert_proto.AlertDatabaseService_GetAlertStreamServer) {
+func (s *sender) AddNewClientStream(stream alert_proto.NotificationService_GetAlertsServer, userID, token string) {
 	s.mut.Lock()
-	s.streamConnections = append(s.streamConnections, stream)
+	s.streamConnections = append(s.streamConnections, alerts_structs.ClientGetAlertStream{
+		Stream: stream, UserID: userID, Token: token,
+	})
 	s.mut.Unlock()
 }
