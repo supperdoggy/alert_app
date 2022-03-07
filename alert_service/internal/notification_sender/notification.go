@@ -12,7 +12,7 @@ import (
 
 type ISender interface {
 	Start() error
-	AddNewClientStream(stream alert_proto.NotificationService_GetAlertsServer, userID, token string)
+	AddNewClientStream(stream alert_proto.NotificationService_GetAlertsServer, userID, token string, doneSignal chan struct{})
 }
 
 type sender struct {
@@ -51,6 +51,7 @@ func (s *sender) Start() error {
 				// hope it works man
 				// removes the stream from pull of streams
 				s.streamConnections = append(s.streamConnections[:k], s.streamConnections[k+1:]...)
+				v.CloseSignal <- struct{}{}
 				continue
 			}
 
@@ -64,10 +65,10 @@ func (s *sender) Start() error {
 	}
 }
 
-func (s *sender) AddNewClientStream(stream alert_proto.NotificationService_GetAlertsServer, userID, token string) {
+func (s *sender) AddNewClientStream(stream alert_proto.NotificationService_GetAlertsServer, userID, token string, closeSignal chan struct{}) {
 	s.mut.Lock()
 	s.streamConnections = append(s.streamConnections, alerts_structs.ClientGetAlertStream{
-		Stream: stream, UserID: userID, Token: token,
+		Stream: stream, UserID: userID, Token: token, CloseSignal: closeSignal,
 	})
 	s.mut.Unlock()
 }

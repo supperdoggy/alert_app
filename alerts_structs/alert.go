@@ -23,4 +23,6 @@ type ClientGetAlertStream struct {
 	Stream alert_proto.NotificationService_GetAlertsServer
 	UserID string
 	Token string
+
+	CloseSignal chan struct{}
 }
