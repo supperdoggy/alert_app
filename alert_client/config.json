@@ -1,0 +1,7 @@
+{
+  "db_url": "0.0.0.0",
+  "db_port": "8080",
+
+  "notification_service_url": "0.0.0.0",
+  "notification_service_port": "8081"
+}

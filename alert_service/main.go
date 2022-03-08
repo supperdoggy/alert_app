@@ -10,6 +10,8 @@ import (
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"net"
+	"runtime"
+	"time"
 )
 
 func main() {
@@ -32,16 +34,25 @@ func main() {
 	grpcServer := grpc.NewServer()
 	alert_proto.RegisterNotificationServiceServer(grpcServer, service)
 
+	go DisplayNumberOfGoroutines(*logger)
 
 	logger.Info("starting server on", zap.Any("listener", urlport))
-
 	go func() {
 		err := notificationClient.Start()
 		if err != nil {
 			logger.Error("got error starting sending notification")
 		}
 	} ()
+
 	if err := grpcServer.Serve(listener); err != nil {
 		logger.Fatal("fatal error serving db server", zap.Error(err))
+	}
+}
+
+// DisplayNumberOfGoroutines - once in a minute displays amount of routines
+func DisplayNumberOfGoroutines(l zap.Logger) {
+	for {
+		l.Info("number of routines", zap.Any("routines", runtime.NumGoroutine()))
+		time.Sleep(1 * time.Minute)
 	}
 }

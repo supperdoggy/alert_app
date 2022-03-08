@@ -9,13 +9,12 @@ import (
 var config appConfig
 
 type appConfig struct {
-	Url  string `json:"url"`
-	Port string `json:"port"`
+	NotificationServiceURL string `json:"notification_service_url"`
+	NotificationServicePort string`json:"notification_service_port"`
 
 	DBServiceURL string `json:"db_url"`
 	DBServicePort string `json:"db_port"`
 
-	IsProd bool `json:"is_prod"`
 }
 
 func init() {
@@ -36,8 +35,8 @@ func init() {
 
 	if config.DBServiceURL == "" ||
 		config.DBServicePort == "" ||
-		config.Port == "" ||
-		config.Url == "" {
+		config.NotificationServiceURL == "" ||
+		config.NotificationServicePort == "" {
 		panic("fill all the config values!!!!")
 	}
 }

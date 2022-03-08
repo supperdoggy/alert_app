@@ -57,9 +57,10 @@ func (s *sender) Start() error {
 
 			if err != nil {
 				s.logger.Error("error sending response", zap.Error(err))
+				s.streamConnections = append(s.streamConnections[:k], s.streamConnections[k+1:]...)
+				v.CloseSignal <- struct{}{}
+				continue
 			}
-			s.logger.Info("sent notification to user", zap.Any("user", v.UserID))
-
 		}
 		s.mut.Unlock()
 	}
