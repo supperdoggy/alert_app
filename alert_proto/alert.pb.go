@@ -384,6 +384,108 @@ func (x *GetAlertStreamResponse) GetAlert() *Alert {
 	return nil
 }
 
+type GetAllActiveAlertsRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserId string `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Token  string `protobuf:"bytes,2,opt,name=token,proto3" json:"token,omitempty"`
+}
+
+func (x *GetAllActiveAlertsRequest) Reset() {
+	*x = GetAllActiveAlertsRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_alert_proto_alert_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetAllActiveAlertsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAllActiveAlertsRequest) ProtoMessage() {}
+
+func (x *GetAllActiveAlertsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_alert_proto_alert_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAllActiveAlertsRequest.ProtoReflect.Descriptor instead.
+func (*GetAllActiveAlertsRequest) Descriptor() ([]byte, []int) {
+	return file_alert_proto_alert_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *GetAllActiveAlertsRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *GetAllActiveAlertsRequest) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+type GetAllActiveAlertsResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Alerts []*Alert `protobuf:"bytes,1,rep,name=alerts,proto3" json:"alerts,omitempty"`
+}
+
+func (x *GetAllActiveAlertsResponse) Reset() {
+	*x = GetAllActiveAlertsResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_alert_proto_alert_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetAllActiveAlertsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAllActiveAlertsResponse) ProtoMessage() {}
+
+func (x *GetAllActiveAlertsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_alert_proto_alert_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAllActiveAlertsResponse.ProtoReflect.Descriptor instead.
+func (*GetAllActiveAlertsResponse) Descriptor() ([]byte, []int) {
+	return file_alert_proto_alert_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *GetAllActiveAlertsResponse) GetAlerts() []*Alert {
+	if x != nil {
+		return x.Alerts
+	}
+	return nil
+}
+
 var File_alert_proto_alert_proto protoreflect.FileDescriptor
 
 var file_alert_proto_alert_proto_rawDesc = []byte{
@@ -418,26 +520,47 @@ var file_alert_proto_alert_proto_rawDesc = []byte{
 	0x16, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x65, 0x72, 0x74, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x52,
 	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x24, 0x0a, 0x05, 0x61, 0x6c, 0x65, 0x72, 0x74,
 	0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x61, 0x6c, 0x65, 0x72, 0x74, 0x70, 0x62,
-	0x2e, 0x41, 0x6c, 0x65, 0x72, 0x74, 0x52, 0x05, 0x61, 0x6c, 0x65, 0x72, 0x74, 0x32, 0x5d, 0x0a,
-	0x13, 0x4e, 0x6f, 0x74, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x65, 0x72,
-	0x76, 0x69, 0x63, 0x65, 0x12, 0x46, 0x0a, 0x09, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x65, 0x72, 0x74,
-	0x73, 0x12, 0x19, 0x2e, 0x61, 0x6c, 0x65, 0x72, 0x74, 0x70, 0x62, 0x2e, 0x47, 0x65, 0x74, 0x41,
-	0x6c, 0x65, 0x72, 0x74, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1a, 0x2e, 0x61,
-	0x6c, 0x65, 0x72, 0x74, 0x70, 0x62, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x65, 0x72, 0x74, 0x73,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x30, 0x01, 0x32, 0xb0, 0x01, 0x0a,
-	0x14, 0x41, 0x6c, 0x65, 0x72, 0x74, 0x44, 0x61, 0x74, 0x61, 0x62, 0x61, 0x73, 0x65, 0x53, 0x65,
-	0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x41, 0x0a, 0x08, 0x4e, 0x65, 0x77, 0x41, 0x6c, 0x65, 0x72,
-	0x74, 0x12, 0x18, 0x2e, 0x61, 0x6c, 0x65, 0x72, 0x74, 0x70, 0x62, 0x2e, 0x4e, 0x65, 0x77, 0x41,
-	0x6c, 0x65, 0x72, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x19, 0x2e, 0x61, 0x6c,
-	0x65, 0x72, 0x74, 0x70, 0x62, 0x2e, 0x4e, 0x65, 0x77, 0x41, 0x6c, 0x65, 0x72, 0x74, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x55, 0x0a, 0x0e, 0x47, 0x65, 0x74, 0x41,
-	0x6c, 0x65, 0x72, 0x74, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x12, 0x1e, 0x2e, 0x61, 0x6c, 0x65,
-	0x72, 0x74, 0x70, 0x62, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x65, 0x72, 0x74, 0x53, 0x74, 0x72,
-	0x65, 0x61, 0x6d, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1f, 0x2e, 0x61, 0x6c, 0x65,
-	0x72, 0x74, 0x70, 0x62, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x65, 0x72, 0x74, 0x53, 0x74, 0x72,
-	0x65, 0x61, 0x6d, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x30, 0x01, 0x42,
-	0x0e, 0x5a, 0x0c, 0x61, 0x6c, 0x65, 0x72, 0x74, 0x5f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x62,
-	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x2e, 0x41, 0x6c, 0x65, 0x72, 0x74, 0x52, 0x05, 0x61, 0x6c, 0x65, 0x72, 0x74, 0x22, 0x4a, 0x0a,
+	0x19, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x41, 0x63, 0x74, 0x69, 0x76, 0x65, 0x41, 0x6c, 0x65,
+	0x72, 0x74, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x17, 0x0a, 0x07, 0x75, 0x73,
+	0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x75, 0x73, 0x65,
+	0x72, 0x49, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x22, 0x44, 0x0a, 0x1a, 0x47, 0x65, 0x74,
+	0x41, 0x6c, 0x6c, 0x41, 0x63, 0x74, 0x69, 0x76, 0x65, 0x41, 0x6c, 0x65, 0x72, 0x74, 0x73, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x26, 0x0a, 0x06, 0x61, 0x6c, 0x65, 0x72, 0x74,
+	0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x61, 0x6c, 0x65, 0x72, 0x74, 0x70,
+	0x62, 0x2e, 0x41, 0x6c, 0x65, 0x72, 0x74, 0x52, 0x06, 0x61, 0x6c, 0x65, 0x72, 0x74, 0x73, 0x32,
+	0xbe, 0x01, 0x0a, 0x13, 0x4e, 0x6f, 0x74, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x46, 0x0a, 0x09, 0x47, 0x65, 0x74, 0x41, 0x6c,
+	0x65, 0x72, 0x74, 0x73, 0x12, 0x19, 0x2e, 0x61, 0x6c, 0x65, 0x72, 0x74, 0x70, 0x62, 0x2e, 0x47,
+	0x65, 0x74, 0x41, 0x6c, 0x65, 0x72, 0x74, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
+	0x1a, 0x2e, 0x61, 0x6c, 0x65, 0x72, 0x74, 0x70, 0x62, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x65,
+	0x72, 0x74, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x30, 0x01, 0x12,
+	0x5f, 0x0a, 0x12, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x41, 0x63, 0x74, 0x69, 0x76, 0x65, 0x41,
+	0x6c, 0x65, 0x72, 0x74, 0x73, 0x12, 0x22, 0x2e, 0x61, 0x6c, 0x65, 0x72, 0x74, 0x70, 0x62, 0x2e,
+	0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x41, 0x63, 0x74, 0x69, 0x76, 0x65, 0x41, 0x6c, 0x65, 0x72,
+	0x74, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x23, 0x2e, 0x61, 0x6c, 0x65, 0x72,
+	0x74, 0x70, 0x62, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x41, 0x63, 0x74, 0x69, 0x76, 0x65,
+	0x41, 0x6c, 0x65, 0x72, 0x74, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00,
+	0x32, 0x91, 0x02, 0x0a, 0x14, 0x41, 0x6c, 0x65, 0x72, 0x74, 0x44, 0x61, 0x74, 0x61, 0x62, 0x61,
+	0x73, 0x65, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x41, 0x0a, 0x08, 0x4e, 0x65, 0x77,
+	0x41, 0x6c, 0x65, 0x72, 0x74, 0x12, 0x18, 0x2e, 0x61, 0x6c, 0x65, 0x72, 0x74, 0x70, 0x62, 0x2e,
+	0x4e, 0x65, 0x77, 0x41, 0x6c, 0x65, 0x72, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
+	0x19, 0x2e, 0x61, 0x6c, 0x65, 0x72, 0x74, 0x70, 0x62, 0x2e, 0x4e, 0x65, 0x77, 0x41, 0x6c, 0x65,
+	0x72, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x55, 0x0a, 0x0e,
+	0x47, 0x65, 0x74, 0x41, 0x6c, 0x65, 0x72, 0x74, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x12, 0x1e,
+	0x2e, 0x61, 0x6c, 0x65, 0x72, 0x74, 0x70, 0x62, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x65, 0x72,
+	0x74, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1f,
+	0x2e, 0x61, 0x6c, 0x65, 0x72, 0x74, 0x70, 0x62, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x65, 0x72,
+	0x74, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22,
+	0x00, 0x30, 0x01, 0x12, 0x5f, 0x0a, 0x12, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x41, 0x63, 0x74,
+	0x69, 0x76, 0x65, 0x41, 0x6c, 0x65, 0x72, 0x74, 0x73, 0x12, 0x22, 0x2e, 0x61, 0x6c, 0x65, 0x72,
+	0x74, 0x70, 0x62, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x41, 0x63, 0x74, 0x69, 0x76, 0x65,
+	0x41, 0x6c, 0x65, 0x72, 0x74, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x23, 0x2e,
+	0x61, 0x6c, 0x65, 0x72, 0x74, 0x70, 0x62, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x41, 0x63,
+	0x74, 0x69, 0x76, 0x65, 0x41, 0x6c, 0x65, 0x72, 0x74, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x22, 0x00, 0x42, 0x0e, 0x5a, 0x0c, 0x61, 0x6c, 0x65, 0x72, 0x74, 0x5f, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x2f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -452,32 +575,39 @@ func file_alert_proto_alert_proto_rawDescGZIP() []byte {
 	return file_alert_proto_alert_proto_rawDescData
 }
 
-var file_alert_proto_alert_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_alert_proto_alert_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_alert_proto_alert_proto_goTypes = []interface{}{
-	(*Alert)(nil),                  // 0: alertpb.Alert
-	(*GetAlertsRequest)(nil),       // 1: alertpb.GetAlertsRequest
-	(*GetAlertsResponse)(nil),      // 2: alertpb.GetAlertsResponse
-	(*NewAlertRequest)(nil),        // 3: alertpb.NewAlertRequest
-	(*NewAlertResponse)(nil),       // 4: alertpb.NewAlertResponse
-	(*GetAlertStreamRequest)(nil),  // 5: alertpb.GetAlertStreamRequest
-	(*GetAlertStreamResponse)(nil), // 6: alertpb.GetAlertStreamResponse
+	(*Alert)(nil),                      // 0: alertpb.Alert
+	(*GetAlertsRequest)(nil),           // 1: alertpb.GetAlertsRequest
+	(*GetAlertsResponse)(nil),          // 2: alertpb.GetAlertsResponse
+	(*NewAlertRequest)(nil),            // 3: alertpb.NewAlertRequest
+	(*NewAlertResponse)(nil),           // 4: alertpb.NewAlertResponse
+	(*GetAlertStreamRequest)(nil),      // 5: alertpb.GetAlertStreamRequest
+	(*GetAlertStreamResponse)(nil),     // 6: alertpb.GetAlertStreamResponse
+	(*GetAllActiveAlertsRequest)(nil),  // 7: alertpb.GetAllActiveAlertsRequest
+	(*GetAllActiveAlertsResponse)(nil), // 8: alertpb.GetAllActiveAlertsResponse
 }
 var file_alert_proto_alert_proto_depIdxs = []int32{
-	0, // 0: alertpb.GetAlertsResponse.alert:type_name -> alertpb.Alert
-	0, // 1: alertpb.NewAlertRequest.alert:type_name -> alertpb.Alert
-	0, // 2: alertpb.NewAlertResponse.alert:type_name -> alertpb.Alert
-	0, // 3: alertpb.GetAlertStreamResponse.alert:type_name -> alertpb.Alert
-	1, // 4: alertpb.NotificationService.GetAlerts:input_type -> alertpb.GetAlertsRequest
-	3, // 5: alertpb.AlertDatabaseService.NewAlert:input_type -> alertpb.NewAlertRequest
-	5, // 6: alertpb.AlertDatabaseService.GetAlertStream:input_type -> alertpb.GetAlertStreamRequest
-	2, // 7: alertpb.NotificationService.GetAlerts:output_type -> alertpb.GetAlertsResponse
-	4, // 8: alertpb.AlertDatabaseService.NewAlert:output_type -> alertpb.NewAlertResponse
-	6, // 9: alertpb.AlertDatabaseService.GetAlertStream:output_type -> alertpb.GetAlertStreamResponse
-	7, // [7:10] is the sub-list for method output_type
-	4, // [4:7] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	0,  // 0: alertpb.GetAlertsResponse.alert:type_name -> alertpb.Alert
+	0,  // 1: alertpb.NewAlertRequest.alert:type_name -> alertpb.Alert
+	0,  // 2: alertpb.NewAlertResponse.alert:type_name -> alertpb.Alert
+	0,  // 3: alertpb.GetAlertStreamResponse.alert:type_name -> alertpb.Alert
+	0,  // 4: alertpb.GetAllActiveAlertsResponse.alerts:type_name -> alertpb.Alert
+	1,  // 5: alertpb.NotificationService.GetAlerts:input_type -> alertpb.GetAlertsRequest
+	7,  // 6: alertpb.NotificationService.GetAllActiveAlerts:input_type -> alertpb.GetAllActiveAlertsRequest
+	3,  // 7: alertpb.AlertDatabaseService.NewAlert:input_type -> alertpb.NewAlertRequest
+	5,  // 8: alertpb.AlertDatabaseService.GetAlertStream:input_type -> alertpb.GetAlertStreamRequest
+	7,  // 9: alertpb.AlertDatabaseService.GetAllActiveAlerts:input_type -> alertpb.GetAllActiveAlertsRequest
+	2,  // 10: alertpb.NotificationService.GetAlerts:output_type -> alertpb.GetAlertsResponse
+	8,  // 11: alertpb.NotificationService.GetAllActiveAlerts:output_type -> alertpb.GetAllActiveAlertsResponse
+	4,  // 12: alertpb.AlertDatabaseService.NewAlert:output_type -> alertpb.NewAlertResponse
+	6,  // 13: alertpb.AlertDatabaseService.GetAlertStream:output_type -> alertpb.GetAlertStreamResponse
+	8,  // 14: alertpb.AlertDatabaseService.GetAllActiveAlerts:output_type -> alertpb.GetAllActiveAlertsResponse
+	10, // [10:15] is the sub-list for method output_type
+	5,  // [5:10] is the sub-list for method input_type
+	5,  // [5:5] is the sub-list for extension type_name
+	5,  // [5:5] is the sub-list for extension extendee
+	0,  // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_alert_proto_alert_proto_init() }
@@ -570,6 +700,30 @@ func file_alert_proto_alert_proto_init() {
 				return nil
 			}
 		}
+		file_alert_proto_alert_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetAllActiveAlertsRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_alert_proto_alert_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetAllActiveAlertsResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -577,7 +731,7 @@ func file_alert_proto_alert_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_alert_proto_alert_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   2,
 		},
@@ -604,6 +758,7 @@ const _ = grpc.SupportPackageIsVersion6
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type NotificationServiceClient interface {
 	GetAlerts(ctx context.Context, in *GetAlertsRequest, opts ...grpc.CallOption) (NotificationService_GetAlertsClient, error)
+	GetAllActiveAlerts(ctx context.Context, in *GetAllActiveAlertsRequest, opts ...grpc.CallOption) (*GetAllActiveAlertsResponse, error)
 }
 
 type notificationServiceClient struct {
@@ -646,9 +801,19 @@ func (x *notificationServiceGetAlertsClient) Recv() (*GetAlertsResponse, error) 
 	return m, nil
 }
 
+func (c *notificationServiceClient) GetAllActiveAlerts(ctx context.Context, in *GetAllActiveAlertsRequest, opts ...grpc.CallOption) (*GetAllActiveAlertsResponse, error) {
+	out := new(GetAllActiveAlertsResponse)
+	err := c.cc.Invoke(ctx, "/alertpb.NotificationService/GetAllActiveAlerts", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // NotificationServiceServer is the server API for NotificationService service.
 type NotificationServiceServer interface {
 	GetAlerts(*GetAlertsRequest, NotificationService_GetAlertsServer) error
+	GetAllActiveAlerts(context.Context, *GetAllActiveAlertsRequest) (*GetAllActiveAlertsResponse, error)
 }
 
 // UnimplementedNotificationServiceServer can be embedded to have forward compatible implementations.
@@ -657,6 +822,9 @@ type UnimplementedNotificationServiceServer struct {
 
 func (*UnimplementedNotificationServiceServer) GetAlerts(*GetAlertsRequest, NotificationService_GetAlertsServer) error {
 	return status.Errorf(codes.Unimplemented, "method GetAlerts not implemented")
+}
+func (*UnimplementedNotificationServiceServer) GetAllActiveAlerts(context.Context, *GetAllActiveAlertsRequest) (*GetAllActiveAlertsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllActiveAlerts not implemented")
 }
 
 func RegisterNotificationServiceServer(s *grpc.Server, srv NotificationServiceServer) {
@@ -684,10 +852,33 @@ func (x *notificationServiceGetAlertsServer) Send(m *GetAlertsResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
+func _NotificationService_GetAllActiveAlerts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAllActiveAlertsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationServiceServer).GetAllActiveAlerts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/alertpb.NotificationService/GetAllActiveAlerts",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationServiceServer).GetAllActiveAlerts(ctx, req.(*GetAllActiveAlertsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _NotificationService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "alertpb.NotificationService",
 	HandlerType: (*NotificationServiceServer)(nil),
-	Methods:     []grpc.MethodDesc{},
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetAllActiveAlerts",
+			Handler:    _NotificationService_GetAllActiveAlerts_Handler,
+		},
+	},
 	Streams: []grpc.StreamDesc{
 		{
 			StreamName:    "GetAlerts",
@@ -704,6 +895,7 @@ var _NotificationService_serviceDesc = grpc.ServiceDesc{
 type AlertDatabaseServiceClient interface {
 	NewAlert(ctx context.Context, in *NewAlertRequest, opts ...grpc.CallOption) (*NewAlertResponse, error)
 	GetAlertStream(ctx context.Context, in *GetAlertStreamRequest, opts ...grpc.CallOption) (AlertDatabaseService_GetAlertStreamClient, error)
+	GetAllActiveAlerts(ctx context.Context, in *GetAllActiveAlertsRequest, opts ...grpc.CallOption) (*GetAllActiveAlertsResponse, error)
 }
 
 type alertDatabaseServiceClient struct {
@@ -755,10 +947,20 @@ func (x *alertDatabaseServiceGetAlertStreamClient) Recv() (*GetAlertStreamRespon
 	return m, nil
 }
 
+func (c *alertDatabaseServiceClient) GetAllActiveAlerts(ctx context.Context, in *GetAllActiveAlertsRequest, opts ...grpc.CallOption) (*GetAllActiveAlertsResponse, error) {
+	out := new(GetAllActiveAlertsResponse)
+	err := c.cc.Invoke(ctx, "/alertpb.AlertDatabaseService/GetAllActiveAlerts", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AlertDatabaseServiceServer is the server API for AlertDatabaseService service.
 type AlertDatabaseServiceServer interface {
 	NewAlert(context.Context, *NewAlertRequest) (*NewAlertResponse, error)
 	GetAlertStream(*GetAlertStreamRequest, AlertDatabaseService_GetAlertStreamServer) error
+	GetAllActiveAlerts(context.Context, *GetAllActiveAlertsRequest) (*GetAllActiveAlertsResponse, error)
 }
 
 // UnimplementedAlertDatabaseServiceServer can be embedded to have forward compatible implementations.
@@ -770,6 +972,9 @@ func (*UnimplementedAlertDatabaseServiceServer) NewAlert(context.Context, *NewAl
 }
 func (*UnimplementedAlertDatabaseServiceServer) GetAlertStream(*GetAlertStreamRequest, AlertDatabaseService_GetAlertStreamServer) error {
 	return status.Errorf(codes.Unimplemented, "method GetAlertStream not implemented")
+}
+func (*UnimplementedAlertDatabaseServiceServer) GetAllActiveAlerts(context.Context, *GetAllActiveAlertsRequest) (*GetAllActiveAlertsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllActiveAlerts not implemented")
 }
 
 func RegisterAlertDatabaseServiceServer(s *grpc.Server, srv AlertDatabaseServiceServer) {
@@ -815,6 +1020,24 @@ func (x *alertDatabaseServiceGetAlertStreamServer) Send(m *GetAlertStreamRespons
 	return x.ServerStream.SendMsg(m)
 }
 
+func _AlertDatabaseService_GetAllActiveAlerts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAllActiveAlertsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AlertDatabaseServiceServer).GetAllActiveAlerts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/alertpb.AlertDatabaseService/GetAllActiveAlerts",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AlertDatabaseServiceServer).GetAllActiveAlerts(ctx, req.(*GetAllActiveAlertsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _AlertDatabaseService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "alertpb.AlertDatabaseService",
 	HandlerType: (*AlertDatabaseServiceServer)(nil),
@@ -822,6 +1045,10 @@ var _AlertDatabaseService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "NewAlert",
 			Handler:    _AlertDatabaseService_NewAlert_Handler,
+		},
+		{
+			MethodName: "GetAllActiveAlerts",
+			Handler:    _AlertDatabaseService_GetAllActiveAlerts_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

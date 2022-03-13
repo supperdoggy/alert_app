@@ -13,6 +13,7 @@ import (
 type IService interface {
 	NewAlert(context.Context, *alert_proto.NewAlertRequest) (*alert_proto.NewAlertResponse, error)
 	GetAlertStream(*alert_proto.GetAlertStreamRequest, alert_proto.AlertDatabaseService_GetAlertStreamServer) error
+	GetAllActiveAlerts(ctx context.Context, in *alert_proto.GetAllActiveAlertsRequest) (*alert_proto.GetAllActiveAlertsResponse, error)
 }
 
 type service struct {
@@ -58,7 +59,6 @@ func (s *service) NewAlert(ctx context.Context, request *alert_proto.NewAlertReq
 }
 
 func (s *service) GetAlertStream(req *alert_proto.GetAlertStreamRequest, stream alert_proto.AlertDatabaseService_GetAlertStreamServer) error {
-	s.l.Info("got alert stream")
 	select {
 	case a := <- alertChan:
 		resp := alert_proto.GetAlertStreamResponse{Alert: a}
@@ -68,3 +68,27 @@ func (s *service) GetAlertStream(req *alert_proto.GetAlertStreamRequest, stream 
 	}
 	return nil
 }
+
+func (s *service) GetAllActiveAlerts(ctx context.Context, in *alert_proto.GetAllActiveAlertsRequest) (*alert_proto.GetAllActiveAlertsResponse, error) {
+	// token and user_id for the future?
+	if in == nil || in.GetToken() == "" || in.GetUserId() == "" {
+		s.l.Error("error GetAllActiveAlerts did not fill all fields", zap.Any("req", in))
+		return nil, status.Error(codes.InvalidArgument, "fill all fields")
+	}
+
+	var result alert_proto.GetAllActiveAlertsResponse
+
+	alerts, err := s.db.GetAllActiveAlerts()
+	if err != nil {
+		s.l.Error("error calling GetAllActiveAlerts", zap.Error(err))
+		return nil, status.Error(codes.Internal, "db call error")
+	}
+
+	if alerts == nil || len(alerts) == 0 {
+		return nil, status.Error(codes.NotFound, "not found any alerts")
+	}
+
+	result.Alerts = alerts
+	return &result, nil
+}
+

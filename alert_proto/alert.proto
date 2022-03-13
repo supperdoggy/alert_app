@@ -32,6 +32,7 @@ message NewAlertResponse {
 
 service NotificationService {
   rpc GetAlerts(GetAlertsRequest) returns (stream GetAlertsResponse) {};
+  rpc GetAllActiveAlerts(GetAllActiveAlertsRequest) returns (GetAllActiveAlertsResponse) {};
 }
 
 // db service
@@ -44,7 +45,17 @@ message GetAlertStreamResponse {
   Alert alert = 1;
 }
 
+message GetAllActiveAlertsRequest {
+  string user_id = 1;
+  string token = 2;
+}
+
+message GetAllActiveAlertsResponse {
+  repeated Alert alerts = 1;
+}
+
 service AlertDatabaseService {
   rpc NewAlert(NewAlertRequest) returns (NewAlertResponse) {};
   rpc GetAlertStream(GetAlertStreamRequest) returns (stream GetAlertStreamResponse) {};
+  rpc GetAllActiveAlerts(GetAllActiveAlertsRequest) returns (GetAllActiveAlertsResponse) {};
 }

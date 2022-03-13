@@ -23,7 +23,7 @@ func main() {
 	config := cfg.GetConfig()
 	dbclient, err := databaseClient.NewDatabaseClient(config.DBServiceURL, config.DBServicePort, logger, grpc.WithInsecure())
 	notificationClient := notification_sender.NewSender(logger, dbclient)
-	service := service2.NewService(logger, &notificationClient)
+	service := service2.NewService(logger, &notificationClient, dbclient)
 
 	urlport := fmt.Sprintf("%s:%s", config.Url, config.Port)
 	listener, err := net.Listen("tcp", urlport)

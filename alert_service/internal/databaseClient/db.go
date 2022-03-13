@@ -11,6 +11,7 @@ import (
 
 type IDatabaseClient interface {
 	ListenGetAlertStream(ch chan *alert_proto.Alert)
+	GetAllActiveAlerts(ctx context.Context, in *alert_proto.GetAllActiveAlertsRequest) (*alert_proto.GetAllActiveAlertsResponse, error)
 }
 
 type databaseClient struct {
@@ -64,3 +65,9 @@ func (d *databaseClient) getAlertStream(ctx *context.Context) (alert_proto.Alert
 	stream, err := d.client.GetAlertStream(*ctx, &alert_proto.GetAlertStreamRequest{})
 	return stream, err
 }
+
+func (d *databaseClient) GetAllActiveAlerts(ctx context.Context, in *alert_proto.GetAllActiveAlertsRequest) (*alert_proto.GetAllActiveAlertsResponse, error) {
+	resp, err := d.client.GetAllActiveAlerts(ctx, in)
+	return resp, err
+}
+

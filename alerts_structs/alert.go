@@ -9,6 +9,7 @@ type AlertDB struct {
 	Tag                string `json:"tag"`
 	Address            string `json:"address"`
 	ExpirationDateTime int64  `json:"expiration_date_time"`
+	CreationDateTime int64 `json:"creation_date_time"`
 }
 
 type Alert struct {
