@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	cfg "github.com/supperdoggy/alert/alert_db/internal/config"
-	db2 "github.com/supperdoggy/alert/alert_db/internal/db"
+	cfg "github.com/supperdoggy/alert/alert_db/internal/models/config"
+	db2 "github.com/supperdoggy/alert/alert_db/internal/models/db"
 	service2 "github.com/supperdoggy/alert/alert_db/internal/service"
 	"github.com/supperdoggy/alert/alert_proto"
 	"go.uber.org/zap"

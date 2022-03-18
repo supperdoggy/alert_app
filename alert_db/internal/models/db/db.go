@@ -49,8 +49,7 @@ func NewDB(l *zap.Logger, url, dbName, alerts string) (IDB, error) {
 }
 
 func (d *db) NewAlert(alert alerts_structs.AlertDB) (codes.Code, error) {
-	if alert.Body == "" || alert.Address == "" ||
-		alert.Tag == "" || alert.Title == "" ||
+	if alert.Body == "" || alert.Title == "" ||
 		alert.ExpirationDateTime == 0 {
 		return codes.InvalidArgument, ErrFillAlertFields
 	}

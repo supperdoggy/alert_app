@@ -2,7 +2,8 @@ package service
 
 import (
 	"context"
-	db2 "github.com/supperdoggy/alert/alert_db/internal/db"
+	db2 "github.com/supperdoggy/alert/alert_db/internal/models/db"
+	"github.com/supperdoggy/alert/alert_db/internal/osmapi"
 	"github.com/supperdoggy/alert/alert_proto"
 	"github.com/supperdoggy/alert/alerts_structs"
 	"go.uber.org/zap"
@@ -33,16 +34,25 @@ func NewService(l *zap.Logger, db db2.IDB) IService {
 }
 
 func (s *service) NewAlert(ctx context.Context, request *alert_proto.NewAlertRequest) (*alert_proto.NewAlertResponse, error) {
-	if request.GetAlert() == nil {
-		return nil, status.Error(codes.InvalidArgument, "nil alert")
+	if request.GetTitle() == "" || request.GetBody() == "" {
+		return nil, status.Error(codes.InvalidArgument, "no name and title")
 	}
 
+	// osm
+	osmObj, err := osmapi.GetByCoordinates(request.GetLat(), request.GetLon())
+	if err != nil {
+		s.l.Error("error osmapi GetByCoordinates", zap.Error(err))
+		return nil, status.Error(codes.InvalidArgument, "error getting address")
+	}
+	address := osmObj.Address
+
 	a := alerts_structs.AlertDB{
-		Title: request.GetAlert().GetTitle(),
-		Body: request.GetAlert().GetBody(),
-		Tag: request.GetAlert().GetTag(),
-		Address: request.GetAlert().GetAddress(),
-		ExpirationDateTime: request.GetAlert().GetExpirationDatetime(),
+		Title: request.GetTitle(),
+		Body: request.GetBody(),
+		Lat: request.GetLat(),
+		Lon: request.GetLon(),
+		Address: address,
+		ExpirationDateTime: request.GetExpirationDatetime(),
 	}
 
 	code, err := s.db.NewAlert(a)
@@ -50,11 +60,34 @@ func (s *service) NewAlert(ctx context.Context, request *alert_proto.NewAlertReq
 		return nil, status.Error(code, err.Error())
 	}
 
+	resp := alert_proto.NewAlertResponse{
+		Alert: &alert_proto.Alert{
+			Lat:                request.GetLat(),
+			Lon:                request.GetLon(),
+			Address:            &alert_proto.Address{
+				Country:      address.Country,
+				CountyCode:   address.CountyCode,
+				County:       address.County,
+				State:        address.State,
+				Town:         address.Town,
+				Municipality: address.Municipality,
+				District:     address.District,
+				Postcode:     address.Postcode,
+				Building:     address.Building,
+				HouseNumber:  address.HouseNumber,
+				Road:         address.Road,
+				Suburb:       address.Suburb,
+				Borough:      address.Borough,
+			},
+			Title:              a.Title,
+			Body:               a.Body,
+			ExpirationDatetime: a.ExpirationDateTime,
+		},
+	}
+
 	// can block the stream god dammit
 	// its just to make it work
-	alertChan <- request.GetAlert()
-	resp := alert_proto.NewAlertResponse{Alert: request.GetAlert()}
-
+	alertChan <- resp.GetAlert()
 	return &resp, nil
 }
 

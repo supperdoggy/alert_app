@@ -4,11 +4,28 @@ package alertpb;
 option go_package="alert_proto/";
 
 message Alert {
-  string tag = 1;
-  string address = 2;
-  string title = 3;
-  string body = 4;
-  int64 expiration_datetime = 5;
+  float lat = 1;
+  float lon = 2;
+  Address address = 3;
+  string title = 4;
+  string body = 5;
+  int64 expiration_datetime = 6;
+}
+
+message Address {
+  string country = 1;
+  string county_code = 2;
+  string county = 3;
+  string state = 4;
+  string town = 5;
+  string municipality = 6;
+  string district = 7;
+  string postcode = 8;
+  string building = 9;
+  string house_number = 10;
+  string road = 11;
+  string suburb = 12;
+  string borough = 13;
 }
 
 // db service
@@ -23,7 +40,11 @@ message GetAlertsResponse {
 }
 
 message NewAlertRequest {
-  Alert alert = 1;
+  float lat = 1;
+  float lon = 2;
+  string title = 3;
+  string body = 4;
+  int64 expiration_datetime = 5;
 }
 
 message NewAlertResponse {
